@@ -1,0 +1,106 @@
+# Minecraft Cooks のレシピ
+# items: アイテムの識別子と表示名。リソースパックのモデル名(minecraft-cooks:<識別子>)と同じにする
+# 工程(processes)は店ごとに書く。同じ設備に同じ中身を入れても、店によって結果を変えられる
+# 中身は「種類と個数がちょうど一致」したときだけ完成する。順番は問わない
+
+items:
+  # 調理前の食材
+  meat_raw: 肉
+  fish_raw: 魚
+  veg_raw: 野菜
+  noodle_raw: 麺
+  rice_raw: 米
+  # 下ごしらえ・途中の食材
+  meat_cut: 切った肉
+  meat_boiled: 茹でた肉
+  meat_boiled_cut: 切った茹で肉
+  meat_grilled: 焼いた肉
+  fish_cut: 切った魚
+  fish_cut_fine: 細かく切った魚
+  fish_grilled: 焼いた魚
+  fish_grilled2: よく焼いた魚
+  veg_cut: 切った野菜
+  noodle_boiled: 茹でた麺
+  # 調理済み
+  shumai_steamed: 蒸したシュウマイ
+  chahan_fried: 炒めたチャーハン
+  terrine_set: 固めたテリーヌ
+  potofu_stewed: 煮込んだポトフ
+  nikujaga_stewed: 煮込んだ肉じゃが
+  tempura_fried: 揚げた天ぷら
+  # 失敗
+  ruined: 失敗した料理
+  burnt: 焦げ
+  # 盛り付け済みの料理
+  dish_ramen: ラーメン
+  dish_shumai: シュウマイ
+  dish_chahan: チャーハン
+  dish_terrine: テリーヌ
+  dish_meuniere: ムニエル
+  dish_potofu: ポトフ
+  dish_tempura: 天ぷら
+  dish_nikujaga: 肉じゃが
+  dish_soba: おそば
+
+# 食材箱から出てくる食材
+boxes:
+  box_meat: meat_raw
+  box_fish: fish_raw
+  box_veg: veg_raw
+  box_noodle: noodle_raw
+  box_rice: rice_raw
+
+# 失敗したとき、焦げたときのアイテム
+failure:
+  ruined: ruined
+  burnt: burnt
+
+# 設備: cutting_board(まな板), pan(フライパン), pot_boil(茹で鍋), pot_steam(蒸し鍋),
+#       pot_stew(煮込み鍋), pot_set(固め鍋), fryer(フライヤー)
+shops:
+  chinese:
+    name: 中華
+    processes:
+      - { equip: pot_boil, in: [noodle_raw], out: noodle_boiled }
+      - { equip: pot_boil, in: [meat_raw], out: meat_boiled }
+      - { equip: cutting_board, in: [meat_boiled], out: meat_boiled_cut }
+      - { equip: cutting_board, in: [meat_raw], out: meat_cut }
+      - { equip: cutting_board, in: [veg_raw], out: veg_cut }
+      - { equip: pot_steam, in: [veg_cut, meat_cut], out: shumai_steamed }
+      - { equip: pan, in: [veg_cut, meat_cut, rice_raw], out: chahan_fried }
+    dishes:
+      ramen: { name: ラーメン, item: dish_ramen, parts: [noodle_boiled, meat_boiled_cut, veg_cut] }
+      shumai: { name: シュウマイ, item: dish_shumai, parts: [shumai_steamed] }
+      chahan: { name: チャーハン, item: dish_chahan, parts: [chahan_fried] }
+
+  french:
+    name: フランス
+    processes:
+      - { equip: cutting_board, in: [meat_raw], out: meat_cut }
+      - { equip: cutting_board, in: [fish_raw], out: fish_cut }
+      - { equip: cutting_board, in: [veg_raw], out: veg_cut }
+      - { equip: pot_set, in: [meat_cut, veg_cut], out: terrine_set }
+      - { equip: pot_set, in: [fish_cut, veg_cut], out: terrine_set }
+      - { equip: pan, in: [fish_raw], out: fish_grilled }
+      - { equip: pan, in: [fish_grilled], out: fish_grilled2 }
+      - { equip: pot_stew, in: [veg_cut, meat_cut], out: potofu_stewed }
+    dishes:
+      terrine: { name: テリーヌ, item: dish_terrine, parts: [terrine_set] }
+      meuniere: { name: ムニエル, item: dish_meuniere, parts: [fish_grilled2] }
+      potofu: { name: ポトフ, item: dish_potofu, parts: [potofu_stewed] }
+
+  japanese:
+    name: 和食
+    processes:
+      - { equip: cutting_board, in: [fish_raw], out: fish_cut }
+      - { equip: cutting_board, in: [fish_cut], out: fish_cut_fine }
+      - { equip: cutting_board, in: [meat_raw], out: meat_cut }
+      - { equip: cutting_board, in: [veg_raw], out: veg_cut }
+      - { equip: fryer, in: [fish_cut_fine], out: tempura_fried }
+      - { equip: pot_stew, in: [meat_cut, veg_cut], out: nikujaga_stewed }
+      - { equip: pot_boil, in: [noodle_raw], out: noodle_boiled }
+      - { equip: pan, in: [meat_raw], out: meat_grilled }
+    dishes:
+      tempura: { name: 天ぷら, item: dish_tempura, parts: [tempura_fried] }
+      nikujaga: { name: 肉じゃが, item: dish_nikujaga, parts: [nikujaga_stewed] }
+      soba: { name: おそば, item: dish_soba, parts: [noodle_boiled, meat_grilled] }

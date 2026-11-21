@@ -1,0 +1,18 @@
+# Minecraft Cooks の設定
+# 数値の設定(時間や得点)は settings.yml にあり、/cg settings の画面から変えられる
+
+resource-pack:
+  # zip を置いた URL(直接ダウンロードできるもの)。空なら送らない
+  url: ""
+  # zip の SHA-1(16進数40文字)。空なら起動時にダウンロードして計算する
+  sha1: ""
+  # true なら、断った人はサーバーに入れない
+  required: true
+  prompt: "Minecraft Cooks のリソースパックです"
+
+# 試合が終わったときに戻す場所(空ならワールドのスポーン地点)
+lobby:
+  world: ""
+  x: 0
+  y: 0
+  z: 0

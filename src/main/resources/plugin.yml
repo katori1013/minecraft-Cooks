@@ -1,0 +1,13 @@
+name: minecraft-cooks
+version: '${version}'
+main: jp.minecraftcooks.MinecraftCooksPlugin
+api-version: '1.21.11'
+description: Minecraft Cooks
+commands:
+  cg:
+    description: Minecraft Cooks の運営コマンド
+    usage: /cg <match|team|kitchen|wand|...>
+permissions:
+  minecraft-cooks.admin:
+    description: Minecraft Cooks の運営権限
+    default: op
