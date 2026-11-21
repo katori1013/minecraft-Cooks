@@ -1,5 +1,6 @@
 plugins {
     java
+    id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 group = "jp.minecraftcooks"
@@ -35,4 +36,12 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand("version" to project.version)
     }
+}
+
+// IntelliJ の Gradle 画面から「runServer」でテスト用サーバーを起動する(ファイルは run/ にできる)
+tasks.runServer {
+    minecraftVersion("1.21.11")
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    })
 }
